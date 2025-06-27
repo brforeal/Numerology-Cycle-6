@@ -1,5 +1,5 @@
 import React from 'react';
-import { numerology6_directives } from '../logs/test_aiagent.js';
+// import { numerology6_directives } from '../logs/test_aiagent.js';
 
 // Define kpiData array directly without a type alias
 const KPITracker = ({ cycle, numerology }) => {

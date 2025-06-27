@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { numerology6_directives } from './logs/test_aiagent.js';
+// TO something like this (adjust based on correct location):
+
 import { phaseClock, taskChecklist } from './logs/reflectionLog.js';
 import KPITracker from './components/KPITracker';
-import AIAgent from './components/aiAgent';
-
+import AIAgent from './components/aiAgent'
 const calculateNumerology = (dateStr) => {
     const digits = dateStr.replace(/\D/g, '').split('').map(Number);
     let sum = digits.reduce((a, b) => a + b, 0);
@@ -78,7 +78,7 @@ function App() {
 
     return (
         <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', backgroundColor: '#f0f8ff' }}>
-            <h1>Numerology Cycle 2 Tracker 🚀</h1>
+            <h1>Numerology Cycle  Tracker 🚀</h1>
             <p>
                 Welcome to the Connection Phase ({timeline.today.num}). Today’s focus is collaboration, synchronicity, and harmony. Track your cycle daily to synchronize with the Builder’s Codex.
             </p>
