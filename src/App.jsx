@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import KPITracker from './components/KPITracker';
 import AIAgent from './components/AIAgent';
-import { numerology6_directives } from '../logs/test_aiagent.js';
+import { numerology6_directives } from './logs/test_aiagent.js';
 import { phaseClock, taskChecklist } from './logs/reflectionLog.js';
  
 
