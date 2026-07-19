@@ -1,0 +1,102 @@
+diff --git a/.gitignore b/.gitignore
+index a547bf3..a0fc355 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,5 +1,6 @@
+ # Logs
+ logs
++!src/logs/
+ *.log
+ npm-debug.log*
+ yarn-debug.log*
+diff --git a/README.md b/README.md
+index 58b8ebf..5cf55a4 100644
+--- a/README.md
++++ b/README.md
+@@ -36,14 +36,7 @@ npm run dev
+ 
+ ### ⚡ Next Steps / TODO
+ 
+-* **Create `test_aiagent.js`** to define directives for cycles 6 & 7.
+-* Expand `numerology7_directives` for full Cycle 7 KPI coverage.
+-* Add additional numerology cycles as needed.
+-* Integrate journaling features for AI-assisted reflection.
+-
+-```
+-
+-This makes it clear that creating `test_aiagent.js` is required before the system is fully operational.  
+-
+-I can go ahead and draft the **`test_aiagent.js` scaffold for cycles 6 and 7** next, ready for your `AIAgent` and `KPITracker` to consume. Do you want me to do that?
+-```
++* [x] **Create `test_aiagent.js`** to define directives for cycles 6 & 7.
++* [ ] Wire `numerology7_directives` into `App.jsx` so Cycle 7 actually renders (currently scaffolded but unused - the app still hardcodes Cycle 6).
++* [ ] Add additional numerology cycles as needed.
++* [ ] Integrate journaling features for AI-assisted reflection.
+diff --git a/src/App.jsx b/src/App.jsx
+index 0b7130d..58182bc 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -1,7 +1,7 @@
+ import React, { useState, useEffect } from 'react';
+ import KPITracker from './components/KPITracker';
+ import AIAgent from './components/AIAgent';
+-import { numerology6_directives } from '../logs/test_aiagent.js';
++import { numerology6_directives } from './logs/test_aiagent.js';
+ import { phaseClock, taskChecklist } from './logs/reflectionLog.js';
+  
+ 
+diff --git a/src/logs/reflectionLog.js b/src/logs/reflectionLog.js
+new file mode 100644
+index 0000000..67d4edf
+--- /dev/null
++++ b/src/logs/reflectionLog.js
+@@ -0,0 +1,25 @@
++// Phase clock and task checklist helpers consumed by App.jsx.
++
++export const phaseClock = (hour) => {
++  if (hour < 6) return 'Pre-Dawn Reset';
++  if (hour < 12) return 'Morning Presence';
++  if (hour < 17) return 'Midday Action';
++  if (hour < 21) return 'Evening Reflection';
++  return 'Night Rest';
++};
++
++// Builds a checklist for the given date/numerology from a flat list of task
++// strings. markComplete mutates the shared status array in place so the
++// caller's existing reference (and any spread of it) reflects the update.
++export const taskChecklist = (dateStr, numerology, taskList) => {
++  const status = taskList.map((task) => ({ task, complete: false }));
++
++  return {
++    status,
++    markComplete: (index) => {
++      if (status[index]) {
++        status[index].complete = true;
++      }
++    },
++  };
++};
+diff --git a/src/logs/test_aiagent.js b/src/logs/test_aiagent.js
+new file mode 100644
+index 0000000..25e5378
+--- /dev/null
++++ b/src/logs/test_aiagent.js
+@@ -0,0 +1,18 @@
++// Directives consumed by KPITracker and App.jsx to build each day's task checklist.
++// One directive per KPI row: { email, task }.
++
++export const numerology6_directives = [
++  { email: 'navigator@cycle6.dev', task: 'Reach out and reconnect with one collaborator today' },
++  { email: 'builder@cycle6.dev', task: "Ship one small improvement that helps someone else's workflow" },
++  { email: 'analyst@cycle6.dev', task: "Review yesterday's notes for anything left unresolved" },
++];
++
++// Scaffolded per the README TODO ("Expand numerology7_directives for full
++// Cycle 7 KPI coverage") - not yet wired into App.jsx, which still renders
++// Cycle 6 only. Exported here so the KPI/AIAgent components have something
++// real to consume once Cycle 7 branching gets built.
++export const numerology7_directives = [
++  { email: 'navigator@cycle6.dev', task: 'Block time with no meetings and no messages' },
++  { email: 'builder@cycle6.dev', task: 'Step away from active builds and let something rest' },
++  { email: 'analyst@cycle6.dev', task: 'Journal one honest reflection on the week' },
++];
